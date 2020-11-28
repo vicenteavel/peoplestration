@@ -1,0 +1,81 @@
+.home-container {
+   width: 100vw;
+   height: 100vh;
+}
+
+.home-container header {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   max-width: 80%;
+   margin: 3rem auto;
+}
+
+.home-container header h1{
+   text-align: center;
+}
+
+.home-container header .search-container {
+   display: flex;
+   flex-direction: column;
+}
+
+.home-container header .search-container .category-container {
+   margin-bottom: 1rem;
+}
+
+.home-container header .search-container .category-container label {
+   margin-right: 1.5rem;
+}
+
+.home-container header .search-container .category-container select {
+   width: 10.75rem;
+
+}
+
+.home-container header .search-container input {
+   height: 2.5rem;
+   width: 19.18rem;
+}
+
+.home-container header .button {
+   cursor: pointer;
+   transition: all 0.2s;      
+}
+.home-container header .button:hover {
+   opacity: 0.6;
+}
+
+.home-container .people-container {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   max-width: 80%;
+   margin: 0 auto;
+}
+
+.home-container .people-container ul {
+   list-style: none;
+   display: grid;
+   grid-template-columns: 1fr 1fr 1fr 1fr;
+   grid-gap: 2rem;
+
+   
+}
+
+.home-container .people-container ul li .actions {
+   display: flex;
+   width: 100%;
+   align-items: center;
+   justify-content: space-evenly;
+   margin-top: 1rem;
+}
+
+.home-container .people-container ul li .actions .button {
+   cursor: pointer;
+   transition: all 0.2s;      
+}
+
+.home-container .people-container ul li .actions .button:hover {
+   opacity: 0.6;
+}

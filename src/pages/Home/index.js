@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import api from '../../services/api';
 import { useHistory } from 'react-router-dom';
+import { FiPlusCircle, FiEdit3, FiTrash} from 'react-icons/fi';
+
+import './styles.css';
 
 export default function Home() {
    const history = useHistory();
@@ -32,9 +35,9 @@ export default function Home() {
    }
 
    return (
-      <div>
+      <div className="home-container">
          <header>
-            <h1>PeopleStration</h1>
+            <h1>People<br/>Stration</h1>
 
             <div className="search-container">
                <div className="category-container">
@@ -60,15 +63,17 @@ export default function Home() {
                <input
                   onChange={e => setQuery(e.target.value)}
                   value={query}
+                  placeholder="Digite aqui..."
                />
 
             </div>
 
-            <button
+            <FiPlusCircle
+               size={32}
+               color="green"
+               className="button"
                onClick={() => history.push('/people/create')}
-            >
-               Cadastrar
-            </button>
+            />
          </header>
 
          <div className="people-container">
@@ -76,22 +81,27 @@ export default function Home() {
                {people.map(person => {
                   return (
                      <li key={person.id}>
-                        <p>{person.name}</p>
-                        <p>{person.gender}</p>
-                        <p>{person.email}</p>
-                        <p>{person.birthday}</p>
-                        <p>{person.place_of_birthday}</p>
-                        <p>{person.nationality}</p>
-                        <p>{person.cpf}</p>
+                        <p><strong>Nome: </strong>{person.name}</p>
+                        <p><strong>Sexo: </strong>{person.gender}</p>
+                        <p><strong>E-mail: </strong>{person.email}</p>
+                        <p><strong>Data de Nascimento: </strong>{person.birthday.slice(0, 10)}</p>
+                        <p><strong>Naturalidade: </strong>{person.place_of_birthday}</p>
+                        <p><strong>Nacionalidade: </strong>{person.nationality}</p>
+                        <p><strong>CPF: </strong>{person.cpf}</p>
 
                         <div className="actions">
-                           <button onClick={() => history.push(`/people/edit/${person.id}`)} >
-                              Editar
-                           </button>
+                           <FiEdit3
+                              size={24}
+                              className="button"
+                              onClick={() => history.push(`/people/edit/${person.id}`)}
+                           />
 
-                           <button onClick={() => handleDelete(person.id)}>
-                              Deletar
-                           </button>
+                           <FiTrash
+                              size={24} 
+                              color="red" 
+                              className="button"
+                              onClick={() => handleDelete(person.id)}
+                           />
                         </div>
 
                      </li>
