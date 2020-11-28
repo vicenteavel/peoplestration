@@ -3,6 +3,8 @@ import api from '../../services/api';
 import { useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 
+import './styles.css';
+
 export default function Create() {
    const history = useHistory();
 
@@ -45,7 +47,7 @@ export default function Create() {
    }
    
    return (
-      <div>
+      <div className="create-container">
          <h1>Cadastrar</h1>
 
          <form>
@@ -56,6 +58,7 @@ export default function Create() {
                   type="text"
                   value={name}
                   onChange={event => setName(event.target.value)}
+                  placeholder="Ex.: Antônio"
                />
             </div>
 
@@ -66,6 +69,7 @@ export default function Create() {
                   type="text"
                   value={gender}
                   onChange={event => setGender(event.target.value)}
+                  placeholder="Ex.: Masculino"
                />
             </div>
 
@@ -76,6 +80,7 @@ export default function Create() {
                   type="email"
                   value={email}
                   onChange={event => setEmail(event.target.value)}
+                  placeholder="Ex.: exemplo@exemplo.com"
                />
             </div>
 
@@ -97,6 +102,7 @@ export default function Create() {
                   type="text"
                   value={place_of_birthday}
                   onChange={event => setPlaceOfBirthday(event.target.value)}
+                  placeholder="Ex.: João Pessoa"
                />
             </div>
 
@@ -108,6 +114,7 @@ export default function Create() {
                   type="text"
                   value={nationality}
                   onChange={event => setNationality(event.target.value)}
+                  placeholder="Ex.: Brasileiro"
                />
             </div>
 
@@ -119,13 +126,16 @@ export default function Create() {
                   type="number"
                   value={cpf}
                   onChange={event => setCpf(event.target.value)}
+                  placeholder="Ex.: 12345678901"
                />
             </div>
             
          </form>
                
-         <button onClick={handleSubmit}>Cadastrar</button>
-         <button onClick={() => history.push('/people')}>Cancelar</button>
+         <div className="actions">
+            <button onClick={handleSubmit}>Cadastrar</button>
+            <button onClick={() => history.push('/people')}>Cancelar</button>
+         </div>
          
       </div>
    );

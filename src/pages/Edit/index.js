@@ -3,6 +3,8 @@ import api from '../../services/api';
 import { useHistory, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 
+import './styles.css';
+
 export default function Edit() {
    const history = useHistory();
    const { id } = useParams();
@@ -14,7 +16,6 @@ export default function Edit() {
    const [place_of_birthday, setPlaceOfBirthday] = useState('');
    const [nationality, setNationality] = useState('');
    const [cpf, setCpf] = useState('');
-
 
    useEffect(() => {
       api.get(`/people?id=${id}`).then( response => {
@@ -63,7 +64,7 @@ export default function Edit() {
    }
    
    return (
-      <div>
+      <div className="edit-container">
          <h1>Editar</h1>
 
          <form>
@@ -74,6 +75,7 @@ export default function Edit() {
                   type="text"
                   value={name}
                   onChange={event => setName(event.target.value)}
+                  placeholder="Ex.: Antônio"
                />
             </div>
 
@@ -84,6 +86,7 @@ export default function Edit() {
                   type="text"
                   value={gender}
                   onChange={event => setGender(event.target.value)}
+                  placeholder="Ex.: Masculino"
                />
             </div>
 
@@ -94,6 +97,7 @@ export default function Edit() {
                   type="email"
                   value={email}
                   onChange={event => setEmail(event.target.value)}
+                  placeholder="Ex.: exemplo@exemplo.com"
                />
             </div>
 
@@ -115,6 +119,7 @@ export default function Edit() {
                   type="text"
                   value={place_of_birthday}
                   onChange={event => setPlaceOfBirthday(event.target.value)}
+                  placeholder="Ex.: João Pessoa"
                />
             </div>
 
@@ -126,6 +131,7 @@ export default function Edit() {
                   type="text"
                   value={nationality}
                   onChange={event => setNationality(event.target.value)}
+                  placeholder="Ex.: Brasileiro"
                />
             </div>
 
@@ -137,13 +143,17 @@ export default function Edit() {
                   type="number"
                   value={cpf}
                   onChange={event => setCpf(event.target.value)}
+                  placeholder="Ex.: 12345678901"
                />
             </div>
             
          </form>
+
+         <div className="actions">
+            <button onClick={handleSubmit}>Editar</button>
+            <button onClick={() => history.push('/people')}>Cancelar</button>
+         </div>
                
-         <button onClick={handleSubmit}>Editar</button>
-         <button onClick={() => history.push('/people')}>Cancelar</button>
          
       </div>
    );
