@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import api from '../../services/api';
+import { useHistory } from 'react-router-dom';
 
 export default function Home() {
+   const history = useHistory();
+
    const [people, setPeople] = useState([]);
    const [category, setCategory] = useState('');
    const [query, setQuery] = useState('');
@@ -60,7 +63,12 @@ export default function Home() {
                />
 
             </div>
-            <button>Cadastrar</button>
+
+            <button
+               onClick={() => history.push('/people/create')}
+            >
+               Cadastrar
+            </button>
          </header>
 
          <div className="people-container">
