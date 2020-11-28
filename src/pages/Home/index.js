@@ -21,6 +21,13 @@ export default function Home() {
       loadPeople();
    }, [people, category, query]);
 
+   const handleDelete = async (id) => {
+      if(window.confirm("Você tem certeze que quer deletar?")) {
+         await api.delete(`/people/${id}`);
+         setPeople([]);
+      }
+   }
+
    return (
       <div>
          <header>
@@ -59,15 +66,25 @@ export default function Home() {
          <div className="people-container">
             <ul>
                {people.map(person => {
-                  return (<li key={person.id}>
-                     <p>{person.name}</p>
-                     <p>{person.gender}</p>
-                     <p>{person.email}</p>
-                     <p>{person.birthday}</p>
-                     <p>{person.place_of_birthday}</p>
-                     <p>{person.nationality}</p>
-                     <p>{person.cpf}</p>
-                  </li>
+                  return (
+                     <li key={person.id}>
+                        <p>{person.name}</p>
+                        <p>{person.gender}</p>
+                        <p>{person.email}</p>
+                        <p>{person.birthday}</p>
+                        <p>{person.place_of_birthday}</p>
+                        <p>{person.nationality}</p>
+                        <p>{person.cpf}</p>
+
+                        <div className="actions">
+                           <button
+                              onClick={() => handleDelete(person.id)}
+                           >
+                              Deletar
+                           </button>
+                        </div>
+
+                     </li>
                )})}
 
             </ul>
