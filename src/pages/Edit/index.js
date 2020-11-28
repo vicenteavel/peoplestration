@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import api from '../../services/api';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 
-export default function Create() {
+export default function Edit() {
    const history = useHistory();
+   const { id } = useParams();
 
    const [name, setName] = useState('');
    const [gender, setGender] = useState('');
@@ -13,6 +14,22 @@ export default function Create() {
    const [place_of_birthday, setPlaceOfBirthday] = useState('');
    const [nationality, setNationality] = useState('');
    const [cpf, setCpf] = useState('');
+
+
+   useEffect(() => {
+      api.get(`/people?id=${id}`).then( response => {
+         const [data] = response.data;
+
+         setName(data.name);
+         setGender(data.gender);
+         setEmail(data.email);
+         setBirthday(data.birthday.slice(0, 10));
+         setPlaceOfBirthday(data.place_of_birthday);
+         setNationality(data.nationality);
+         setCpf(data.cpf);
+      });
+
+   }, [id]);
 
    const handleSubmit = async () => {
       const data = {name, gender, email, birthday, place_of_birthday, nationality, cpf};
@@ -29,7 +46,7 @@ export default function Create() {
 
       try {
          await schema.validate(data, { abortEarly: false });
-         await api.post('/people', data );
+         await api.put(`/people/${id}`, data );
          history.push('/people');
       } catch(error) {
          if (error instanceof yup.ValidationError) {
@@ -37,16 +54,17 @@ export default function Create() {
             error.inner.forEach(e => {
                messageError += e.message + "\n";
             });
-            alert('\tErros no cadastro:\n\n' +  messageError);
+
+            alert('\tErros na edição:\n\n' +  messageError);
          } else {
-            alert('Erro no cadastro');
+            alert('Erro na edição');
          }
       }
    }
    
    return (
       <div>
-         <h1>Cadastrar</h1>
+         <h1>Editar</h1>
 
          <form>
             <div className="field-container">
@@ -124,7 +142,7 @@ export default function Create() {
             
          </form>
                
-         <button onClick={handleSubmit}>Cadastrar</button>
+         <button onClick={handleSubmit}>Editar</button>
          <button onClick={() => history.push('/people')}>Cancelar</button>
          
       </div>

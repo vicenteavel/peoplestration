@@ -85,9 +85,11 @@ export default function Home() {
                         <p>{person.cpf}</p>
 
                         <div className="actions">
-                           <button
-                              onClick={() => handleDelete(person.id)}
-                           >
+                           <button onClick={() => history.push(`/people/edit/${person.id}`)} >
+                              Editar
+                           </button>
+
+                           <button onClick={() => handleDelete(person.id)}>
                               Deletar
                            </button>
                         </div>
