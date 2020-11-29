@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import api from '../../services/api';
 import { useHistory } from 'react-router-dom';
-import { FiPlusCircle, FiEdit3, FiTrash} from 'react-icons/fi';
+import { FiPlusCircle, FiEdit3, FiTrash, FiLogOut} from 'react-icons/fi';
+
+import { useAuth } from '../../contexts/auth';
+
 
 import './styles.css';
 
@@ -12,6 +15,8 @@ export default function Home() {
    const [category, setCategory] = useState('');
    const [query, setQuery] = useState('');
 
+   const { logout } = useAuth();
+
    useEffect(() => {
       async function loadPeople() {
 
@@ -20,8 +25,12 @@ export default function Home() {
             queryParam = ''
          }
 
-         const response = await api.get(`/people?${queryParam}`);
-         setPeople(response.data);
+         try{
+            const response = await api.get(`/people?${queryParam}`);
+            setPeople(response.data);
+         } catch(error) {
+            console.log(error);
+         }
       }
 
       loadPeople();
@@ -73,6 +82,13 @@ export default function Home() {
                color="green"
                className="button"
                onClick={() => history.push('/people/create')}
+            />
+
+            <FiLogOut
+               size={30}
+               color="red"
+               className="button"
+               onClick={logout}
             />
          </header>
 

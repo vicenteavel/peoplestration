@@ -18,17 +18,22 @@ export default function Edit() {
    const [cpf, setCpf] = useState('');
 
    useEffect(() => {
-      api.get(`/people?id=${id}`).then( response => {
-         const [data] = response.data;
-
-         setName(data.name);
-         setGender(data.gender);
-         setEmail(data.email);
-         setBirthday(data.birthday.slice(0, 10));
-         setPlaceOfBirthday(data.place_of_birthday);
-         setNationality(data.nationality);
-         setCpf(data.cpf);
-      });
+      try {
+         api.get(`/people?id=${id}`).then( response => {
+            const [data] = response.data;
+   
+            setName(data.name);
+            setGender(data.gender);
+            setEmail(data.email);
+            setBirthday(data.birthday.slice(0, 10));
+            setPlaceOfBirthday(data.place_of_birthday);
+            setNationality(data.nationality);
+            setCpf(data.cpf);
+         });
+         
+      } catch(error) {
+         console.log(error);
+      }
 
    }, [id]);
 
